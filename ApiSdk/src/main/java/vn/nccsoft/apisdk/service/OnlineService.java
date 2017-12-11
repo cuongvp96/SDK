@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.Toast;
 
 import vn.nccsoft.apisdk.ApiUtils;
 import vn.nccsoft.apisdk.model.Report_new_register;
@@ -17,13 +19,17 @@ import vn.nccsoft.apisdk.model.Report_new_register;
 public class OnlineService extends Service {
     private Handler handler;
     private long delay = 5000;
-    String packageName;
+    private String packageName;
     Runnable runnable = new Runnable() {
         public void run() {
             if (!ApiUtils.isAppRunning(getApplicationContext(), packageName)){
                 stopSelf();
+                Toast.makeText(getApplicationContext(),"online stop",Toast.LENGTH_SHORT).show();
+                Log.i("online","stop");
             }
+            Toast.makeText(getApplicationContext(),"online restart",Toast.LENGTH_SHORT).show();
             //insert data
+            Log.i("online","Restart");
                 handler.postDelayed(this, delay);
         }
     };
@@ -41,6 +47,8 @@ public class OnlineService extends Service {
         if (intent != null && intent.getExtras() != null) {
             packageName = intent.getExtras().getString("packageName");
             delay = intent.getExtras().getLong("time_delay");
+            Toast.makeText(getApplicationContext(),"online start",Toast.LENGTH_SHORT).show();
+            Log.i("online","start");
         }
         handler.postDelayed(runnable, delay);
         return START_NOT_STICKY;

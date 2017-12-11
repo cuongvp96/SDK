@@ -46,50 +46,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         startServiceLogin2m();
-        clickHome();
 
+        startServiceOnline();
     }
 
-    private void clickHome() {
-        HomeWatcher homeWatcher = new HomeWatcher(this);
-        homeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
-            @Override
-            public void onHomePressed() {
-                //checkHome = true;
-                stopServiceLogin2m();
-            }
-            @Override
-            public void onHomeLongPressed() {
 
-            }
-        });
-        homeWatcher.startWatch();
-    }
 
     public void startServiceLogin2m() {
         Intent mIntent = new Intent(this, Login2mService.class);
         Bundle mBundle = new Bundle();
         Report_new_register report_new_register=new Report_new_register(1,1,1);
+        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
          mIntent.putExtra("report_new_register",report_new_register);
         startService(mIntent);
-
     }
     public void startServiceOnline() {
         Intent mIntent = new Intent(this, OnlineService.class);
         Bundle mBundle = new Bundle();
+        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
         Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("time_delay",5000);
+        mIntent.putExtra("time_delay",5000l);
         startService(mIntent);
     }
-
-    public void stopServiceLogin2m() {
-        stopService(new Intent(getBaseContext(), Login2mService.class));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopServiceLogin2m();
-    }
-
 }
