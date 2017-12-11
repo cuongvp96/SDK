@@ -54,7 +54,7 @@ public class Login2mService extends Service {
             packageName = intent.getExtras().getString("packageName");
             report_new_register = (Report_new_register) intent.getExtras().getSerializable("report_new_register");
         }
-        clickHome();
+
         isMyServiceRunning(Login2mService.class);
         return START_NOT_STICKY;
     }
@@ -63,7 +63,6 @@ public class Login2mService extends Service {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i(TAG, "post submitted to API.");
                 return true;
             }
         }
