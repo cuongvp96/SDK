@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ApiSdk/ApiSdk.iml" filepath="$PROJECT_DIR$/ApiSdk/ApiSdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DemoRetrofit.iml" filepath="$PROJECT_DIR$/DemoRetrofit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\NCCSOFT\DemoRetrofit\ApiSdk\login.iml" filepath="E:\NCCSOFT\DemoRetrofit\ApiSdk\login.iml" />
+    </modules>
+  </component>
+</project>
