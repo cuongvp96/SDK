@@ -17,6 +17,7 @@ import vn.nccsoft.apisdk.model.HomeWatcher;
 import vn.nccsoft.apisdk.model.Report_new_register;
 import vn.nccsoft.apisdk.model.Total_online;
 import vn.nccsoft.apisdk.service.Login2mService;
+import vn.nccsoft.apisdk.service.OnlineService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -72,10 +73,16 @@ public class MainActivity extends AppCompatActivity {
         Intent mIntent = new Intent(this, Login2mService.class);
         Bundle mBundle = new Bundle();
         Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mBundle.putSerializable("report_new_register",report_new_register);
-        mIntent.putExtras(mBundle);
-        startService(new Intent(getBaseContext(), Login2mService.class));
+         mIntent.putExtra("report_new_register",report_new_register);
+        startService(mIntent);
 
+    }
+    public void startServiceOnline() {
+        Intent mIntent = new Intent(this, OnlineService.class);
+        Bundle mBundle = new Bundle();
+        Report_new_register report_new_register=new Report_new_register(1,1,1);
+        mIntent.putExtra("time_delay",5000);
+        startService(mIntent);
     }
 
     public void stopServiceLogin2m() {
