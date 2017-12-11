@@ -23,6 +23,7 @@ public class OnlineService extends Service {
             if (!ApiUtils.isAppRunning(getApplicationContext(), packageName)){
                 stopSelf();
             }
+            //insert data
                 handler.postDelayed(this, delay);
         }
     };
