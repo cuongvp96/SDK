@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
         startServiceLogin2m();
         clickHome();
-        if(!ApiUtils.isAppRunning(getApplicationContext(),"packageName")){
-            stopServiceLogin2m();
-        }
+
     }
 
     private void clickHome() {
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 //checkHome = true;
                 stopServiceLogin2m();
             }
-
             @Override
             public void onHomeLongPressed() {
 
@@ -94,4 +91,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         stopServiceLogin2m();
     }
+
 }

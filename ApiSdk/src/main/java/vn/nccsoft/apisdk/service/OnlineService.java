@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import vn.nccsoft.apisdk.ApiUtils;
 import vn.nccsoft.apisdk.model.Report_new_register;
 
 
@@ -16,11 +17,13 @@ import vn.nccsoft.apisdk.model.Report_new_register;
 public class OnlineService extends Service {
     private Handler handler;
     private long delay = 5000;
-
+    String packageName;
     Runnable runnable = new Runnable() {
         public void run() {
-
-            handler.postDelayed(this, delay);
+            if (!ApiUtils.isAppRunning(getApplicationContext(), packageName)){
+                stopSelf();
+            }
+                handler.postDelayed(this, delay);
         }
     };
 
@@ -34,8 +37,10 @@ public class OnlineService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         handler = new Handler();
 
-        if (intent !=null && intent.getExtras()!=null)
-            delay=intent.getExtras().getLong("time_delay");
+        if (intent != null && intent.getExtras() != null) {
+            packageName = intent.getExtras().getString("packageName");
+            delay = intent.getExtras().getLong("time_delay");
+        }
         handler.postDelayed(runnable, delay);
         return START_NOT_STICKY;
     }
