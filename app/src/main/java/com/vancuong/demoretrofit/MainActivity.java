@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import vn.nccsoft.apisdk.ApiUtils;
 import vn.nccsoft.apisdk.SdkManager;
 import vn.nccsoft.apisdk.model.HomeWatcher;
 import vn.nccsoft.apisdk.model.Report_new_register;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         });
         startServiceLogin2m();
         clickHome();
+        if(!ApiUtils.isAppRunning(getApplicationContext(),"packageName")){
+            stopServiceLogin2m();
+        }
     }
 
     private void clickHome() {
