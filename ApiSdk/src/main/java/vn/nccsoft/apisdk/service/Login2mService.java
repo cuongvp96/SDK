@@ -77,7 +77,6 @@ public class Login2mService extends Service {
                 //checkHome = true;
                 stopSelf();
             }
-
             @Override
             public void onHomeLongPressed() {
 

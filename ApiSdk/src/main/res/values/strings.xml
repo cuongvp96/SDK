@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">login</string>
+    <string name="matkhau">Mật khẩu</string>
+    <string name="dangnhap">Đăng nhập</string>
+    <string name="hoac">hoặc</string>
+    <string name="dangnhapbanggoogle">Đăng nhập bằng Google</string>
+    <string name="dangnhapbangfacebook">Đăng nhập bằng Facebook</string>
+    <string name="dangkymoi">Đăng ký mới</string>
+    <string name="quenmatkhau">Quên mật khẩu?</string>
+    <string name="dangxuat">Đăng xuất</string>
+    <string name="facebook_app_id">862806550562332</string>
+    <string name="fb_login_protocol_scheme">fb862806550562332</string>
+    <string name="googleplus_client">702639052870-59gr7lv1p4beolgbv68jh4bqu4eat04n.apps.googleusercontent.com</string>
+    <string name="dangky">Đăng ký</string>
+    <string name="dangkybanggoogle">Đăng ký bằng Google</string>
+    <string name="dangkybangfacebook">Đăng ký bằng Facebook</string>
 </resources>
