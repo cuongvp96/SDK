@@ -17,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="vn.nccsoft.apisdk.service.Login2mService"></service>
-        <service android:name="vn.nccsoft.apisdk.service.OnlineService"></service>
+        <service android:name="vn.nccsoft.apisdk.service.Login2mService" android:stopWithTask="true"></service>
+        <service android:name="vn.nccsoft.apisdk.service.OnlineService" android:stopWithTask="true"></service>
     </application>
 
 </manifest>

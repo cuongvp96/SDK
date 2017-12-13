@@ -1,6 +1,9 @@
 package com.vancuong.demoretrofit;
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import vn.nccsoft.apisdk.ApiUtils;
+import vn.nccsoft.apisdk.FragmentLogin;
 import vn.nccsoft.apisdk.SdkManager;
 import vn.nccsoft.apisdk.model.HomeWatcher;
 import vn.nccsoft.apisdk.model.Report_new_register;
@@ -23,14 +27,14 @@ import vn.nccsoft.apisdk.service.OnlineService;
 public class MainActivity extends AppCompatActivity {
     TextView textView;
     Button button;
-
+    FragmentLogin fragmentLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = findViewById(R.id.btn_recall);
         final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
+        final AppCompatActivity activity=this;
 
         final SdkManager testCall = new SdkManager();
         // testCall.insert_dlo(getApplicationContext(),daily_login_online);
@@ -41,31 +45,24 @@ public class MainActivity extends AppCompatActivity {
                 // final Daily_login_online daily_login_online=new Daily_login_online(dateFormat.format(date),1,1,10,1);
                 //Report_new_register report_new_register=new Report_new_register(1,1,1,1);
                 // Revenue_agency revenue_agency=new Revenue_agency(1,10,1,20,50);
-                Total_online total_online = new Total_online(10, 1);
-                testCall.insert_to(getApplicationContext(), total_online);
+//                Total_online total_online = new Total_online(10, 1);
+//                testCall.insert_to(getApplicationContext(), total_online);
+                testCall.startLoginSDK(activity);
             }
         });
-        startServiceLogin2m();
+        testCall.startLoginSDK(this);
 
-        startServiceOnline();
+//        testCall.startServiceLogin2m();
+//        testCall.startServiceOnline();
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       // fragmentLogin.onActivityResult(requestCode, resultCode, data);
 
-    public void startServiceLogin2m() {
-        Intent mIntent = new Intent(this, Login2mService.class);
-        Bundle mBundle = new Bundle();
-        Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
-         mIntent.putExtra("report_new_register",report_new_register);
-        startService(mIntent);
+      //  callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    public void startServiceOnline() {
-        Intent mIntent = new Intent(this, OnlineService.class);
-        Bundle mBundle = new Bundle();
-        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
-        Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("time_delay",5000l);
-        startService(mIntent);
-    }
+
 }

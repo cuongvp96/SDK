@@ -17,6 +17,9 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
-
+    <style name = "StyleNoActionBar" parent = "@android:style/Theme.Holo.Light">
+        <item name = "android:windowActionBar">false</item>
+        <item name = "android:windowNoTitle">true</item>
+    </style>
 
 </resources>

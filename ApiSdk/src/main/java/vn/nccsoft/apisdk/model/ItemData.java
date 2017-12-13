@@ -4,17 +4,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by vancu on 07/12/2017.
+ * Created by vancu on 13/12/2017.
  */
 
-public class Item {
+public class ItemData {
     @SerializedName("token")
     @Expose
     private String token;
-
-    public Item(String token) {
-        this.token = token;
-    }
+    @SerializedName("profile")
+    @Expose
+    private ItemProfile profile;
 
     public String getToken() {
         return token;
@@ -22,5 +21,13 @@ public class Item {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public ItemProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ItemProfile profile) {
+        this.profile = profile;
     }
 }
