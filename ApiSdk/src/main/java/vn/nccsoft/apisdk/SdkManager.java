@@ -30,94 +30,111 @@ import vn.nccsoft.apisdk.service.OnlineService;
  */
 
 public class SdkManager {
-    public static FragmentLogin startLoginSDK(AppCompatActivity activity){
-        FragmentManager fragmentManager =  activity.getFragmentManager();
+    public static FragmentLogin startLoginSDK(AppCompatActivity activity) {
+        FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentLogin fragmentLogin = new FragmentLogin();
         fragmentLogin.show(fragmentManager, "dialog");
         return fragmentLogin;
     }
-    public static void startServiceLogin2m(final Context context,String packageName,Report_new_register report_new_register) {
+
+    public static void startServiceLogin2m(final Context context, String packageName, Report_new_register report_new_register) {
         Intent mIntent = new Intent(context, Login2mService.class);
         Bundle mBundle = new Bundle();
-       // Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
-        mIntent.putExtra("report_new_register",report_new_register);
+        // Report_new_register report_new_register=new Report_new_register(1,1,1);
+        mIntent.putExtra("packageName", "com.vancuong.demoretrofit");
+        mIntent.putExtra("report_new_register", report_new_register);
         context.startService(mIntent);
     }
-    public static void startServiceOnline(final Context context,String packageName,Report_new_register report_new_register) {
+
+    public static void startServiceOnline(final Context context, String packageName, Report_new_register report_new_register) {
         Intent mIntent = new Intent(context, OnlineService.class);
         Bundle mBundle = new Bundle();
-        mIntent.putExtra("packageName","com.vancuong.demoretrofit");
+        mIntent.putExtra("packageName", "com.vancuong.demoretrofit");
 //        Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("time_delay",5000l);
+        mIntent.putExtra("time_delay", 5000l);
         context.startService(mIntent);
     }
-    public static void login(final Context context, String username, String password, String game_id) {
+
+    public static void login(final Context context, String username, String password, String game_id, final SuccessCallBack onCallBack) {
 
         Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login(username, password, game_id);
         mCall.enqueue(new Callback<ItemsLogin>() {
             @Override
             public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
-                if (response.isSuccessful()&&response.body().getCode()==1) {
-                        String token = response.body().getData().getToken();
-                        SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
-                        sharedPrefsUtils.setStringPreference(context, "token_login", token);
-                        Toast.makeText(context,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    String token = response.body().getData().getToken();
+                    SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
+                    sharedPrefsUtils.setStringPreference(context, "token_login", token);
+                    onCallBack.onSuccessResponse("1");
+                    Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    onCallBack.onSuccessResponse("2");
+                    Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    Toast.makeText(context,"Đăng nhập thất bại!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
-
+                onCallBack.onSuccessResponse("3");
+                Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public static void loginFB(final Context context,String fb_uid,String fb_token,String last_name,
-                               String first_name,String email,String phone) {
 
-        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login_fb(fb_uid,fb_token,last_name,first_name,email,phone);
+    public static void loginFB(final Context context, String fb_uid, String fb_token, String last_name,
+                               String first_name, String email, String phone,String game_id, final SuccessCallBack onCallBack) {
+
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login_fb(fb_uid, fb_token, last_name, first_name, email, phone,game_id);
         mCall.enqueue(new Callback<ItemsLogin>() {
             @Override
             public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
-                if (response.isSuccessful()&&response.body().getCode()==1) {
+                if (response.isSuccessful() && response.body().getCode() == 1) {
                     String token = response.body().getData().getToken();
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
                     sharedPrefsUtils.setStringPreference(context, "token_loginfb", token);
-                    Toast.makeText(context,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("1");
+                    Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("3");
                 }
-                else
-                    Toast.makeText(context,"Đăng nhập thất bại!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
-
+                onCallBack.onSuccessResponse("3");
+                Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public static void register(final Context context, String username, String password, String game_id,String name) {
 
-        Call<ItemRegister> mCall = ApiUtils.getAPIServiceAPI().register(username, password, game_id,name);
+    public static void register(final Context context, String username, String password, String game_id, String name, final SuccessCallBack onCallBack) {
+
+        Call<ItemRegister> mCall = ApiUtils.getAPIServiceAPI().register(username, password, game_id, name);
         mCall.enqueue(new Callback<ItemRegister>() {
             @Override
             public void onResponse(Call<ItemRegister> call, Response<ItemRegister> response) {
-                if (response.isSuccessful()&&response.body().getCode()==1) {
-                        Toast.makeText(context,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("1");
 //                        String token = response.body().getData().getToken();
 //                        SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
 //                        sharedPrefsUtils.setStringPreference(context, "token_login", token);
                 }
-                Toast.makeText(context,"Đăng ký thất bại",Toast.LENGTH_SHORT).show();
+                {
+                    onCallBack.onSuccessResponse("2");
+                    Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<ItemRegister> call, Throwable t) {
-
+                onCallBack.onSuccessResponse("3");
+                Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     public static void insert_dlo(final Context context, Daily_login_online daily_login_online) {
         final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();

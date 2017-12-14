@@ -19,7 +19,7 @@
             android:background="@drawable/bt_dialog_close"
             android:text="×"
             android:textSize="10pt"
-            android:textColor="@color/colorFacebook" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -109,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorFacebook"

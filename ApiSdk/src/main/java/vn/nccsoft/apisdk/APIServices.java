@@ -29,7 +29,8 @@ public interface APIServices {
                                 @Field("last_name") String last_name,
                                 @Field("first_name") String first_name,
                                 @Field("email") String email,
-                                @Field("phone") String phone
+                                @Field("phone") String phone,
+                              @Field("game_id") String game_id
     );
     @POST("/description/daily_login_online.php")
     @FormUrlEncoded
