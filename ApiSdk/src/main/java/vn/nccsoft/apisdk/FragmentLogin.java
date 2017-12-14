@@ -51,7 +51,9 @@ public class FragmentLogin extends DialogFragment {
         // return super.onCreateDialog(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         dialog = new Dialog(getActivity());
+        dialog.setCancelable(false);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.fragment_sdklogin);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -98,7 +100,7 @@ public class FragmentLogin extends DialogFragment {
                             SdkManager.loginFB(getActivity().getApplicationContext(), fbid, fb_token, fb_lastname, fb_firtname, fb_email, null
                                    ,getActivity().getPackageName() , callBack);
                         } catch (JSONException e) {
-
+                            Toast.makeText(getActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -110,12 +112,12 @@ public class FragmentLogin extends DialogFragment {
 
             @Override
             public void onCancel() {
-                Log.d("kiemtra", "Thoát");
+
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getActivity(), "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -134,16 +136,11 @@ public class FragmentLogin extends DialogFragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentRegister fragmentRegister = new FragmentRegister();
+                fragmentRegister.setCancelable(false);
                 fragmentRegister.show(fragmentManager, "dialog");
             }
         });
-        dialog.findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
 
-        });
         btn_loginfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +160,7 @@ public class FragmentLogin extends DialogFragment {
 
     private boolean validation() {
         if (ed_pass.getText().toString().length() < 6) {
-            ed_pass.setError("Mật khẩu phải lớn hơn 6 kí tự");
+            ed_pass.setError("Passwords must be longer than 6 characters!");
             ed_pass.requestFocus();
             return false;
         }
@@ -171,7 +168,7 @@ public class FragmentLogin extends DialogFragment {
               return true;
         } else {
             ed_email.requestFocus();
-            ed_email.setError("Email sai định dạng");
+            ed_email.setError("Wrong email format!");
             return false;
         }
     }

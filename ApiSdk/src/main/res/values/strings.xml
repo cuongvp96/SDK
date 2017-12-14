@@ -1,16 +1,14 @@
 <resources>
     <string name="app_name">login</string>
-    <string name="matkhau">Mật khẩu</string>
-    <string name="dangnhap">Đăng nhập</string>
-    <string name="hoac">hoặc</string>
-    <string name="dangnhapbanggoogle">Đăng nhập bằng Google</string>
-    <string name="dangnhapbangfacebook">Đăng nhập bằng Facebook</string>
-    <string name="dangkymoi">Đăng ký mới</string>
-    <string name="quenmatkhau">Quên mật khẩu?</string>
-    <string name="dangxuat">Đăng xuất</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_or">OR</string>
+    <string name="txt_login_with_Google">Login with Google</string>
+    <string name="txt_login_with_Facebook">Login with Facebook</string>
+    <string name="txt_Create_new_account">Create new account</string>
+    <string name="txt_Log_out">Log out</string>
     <string name="facebook_app_id">862806550562332</string>
     <string name="fb_login_protocol_scheme">fb862806550562332</string>
-    <string name="dangky">Đăng ký</string>
-    <string name="dangkybanggoogle">Đăng ký bằng Google</string>
-    <string name="dangkybangfacebook">Đăng ký bằng Facebook</string>
+    <string name="txt_Sign_up">Sign up</string>
+
 </resources>

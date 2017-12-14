@@ -9,7 +9,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_dialog">
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_title">
         <Button
             android:id="@+id/close_button"
             android:layout_width="30dp"
@@ -20,15 +24,16 @@
             android:text="×"
             android:textSize="10pt"
             android:textColor="@color/black" />
-
+    </RelativeLayout>
         <TextView
             android:id="@+id/tv_title"
+            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_title"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Đăng ký"
+            android:text="@string/txt_Sign_up"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -45,7 +50,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Họ tên"
+                    android:hint="Name"
                     android:theme="@style/TextLabel">
 
                     <EditText
@@ -76,7 +81,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Mật khẩu"
+                    android:hint="Password"
                     android:theme="@style/TextLabel">
 
                     <EditText
@@ -92,7 +97,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Nhập lại mật khẩu"
+                    android:hint="Re-enter password"
                     android:theme="@style/TextLabel">
 
                     <EditText
@@ -113,7 +118,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorFacebook"
-                    android:text="@string/dangky" />
+                    android:text="@string/txt_Sign_up" />
             </LinearLayout>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

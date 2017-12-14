@@ -33,6 +33,7 @@ public class SdkManager {
     public static FragmentLogin startLoginSDK(AppCompatActivity activity) {
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentLogin fragmentLogin = new FragmentLogin();
+        fragmentLogin.setCancelable(false);
         fragmentLogin.show(fragmentManager, "dialog");
         return fragmentLogin;
     }
@@ -66,17 +67,17 @@ public class SdkManager {
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
                     sharedPrefsUtils.setStringPreference(context, "token_login", token);
                     onCallBack.onSuccessResponse("1");
-                    Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login successfull!", Toast.LENGTH_SHORT).show();
                 } else {
                     onCallBack.onSuccessResponse("2");
-                    Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
                 onCallBack.onSuccessResponse("3");
-                Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -93,17 +94,18 @@ public class SdkManager {
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
                     sharedPrefsUtils.setStringPreference(context, "token_loginfb", token);
                     onCallBack.onSuccessResponse("1");
-                    Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login successfull!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
-                    onCallBack.onSuccessResponse("3");
+                    Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("2" +
+                            "");
                 }
             }
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
                 onCallBack.onSuccessResponse("3");
-                Toast.makeText(context, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -115,22 +117,22 @@ public class SdkManager {
             @Override
             public void onResponse(Call<ItemRegister> call, Response<ItemRegister> response) {
                 if (response.isSuccessful() && response.body().getCode() == 1) {
-                    Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sign Up Success!", Toast.LENGTH_SHORT).show();
                     onCallBack.onSuccessResponse("1");
 //                        String token = response.body().getData().getToken();
 //                        SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
 //                        sharedPrefsUtils.setStringPreference(context, "token_login", token);
-                }
+                }else
                 {
                     onCallBack.onSuccessResponse("2");
-                    Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Signup failed!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ItemRegister> call, Throwable t) {
                 onCallBack.onSuccessResponse("3");
-                Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Signup failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,7 +146,7 @@ public class SdkManager {
             @Override
             public void onResponse(Call<MessageServer> call, Response<MessageServer> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Thanh cong: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "successfull: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -163,7 +165,7 @@ public class SdkManager {
             @Override
             public void onResponse(Call<MessageServer> call, Response<MessageServer> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Thanh cong: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "successfull: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -182,7 +184,7 @@ public class SdkManager {
             @Override
             public void onResponse(Call<MessageServer> call, Response<MessageServer> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Thanh cong: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "successfull " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -201,7 +203,7 @@ public class SdkManager {
             @Override
             public void onResponse(Call<MessageServer> call, Response<MessageServer> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Thanh cong: " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "successfull " + response.body().getSuccess().toString(), Toast.LENGTH_LONG).show();
                 }
             }
 

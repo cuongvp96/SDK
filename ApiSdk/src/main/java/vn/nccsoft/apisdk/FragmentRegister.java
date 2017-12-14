@@ -45,6 +45,8 @@ public class FragmentRegister extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // return super.onCreateDialog(savedInstanceState);
         dialog = new Dialog(getActivity());
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.fragment_sdkregister);
@@ -90,30 +92,30 @@ public class FragmentRegister extends DialogFragment {
     private boolean vlidation() {
 
         if (edt_name.getText().toString().isEmpty()) {
-            edt_name.setError("Bạn chưa nhập tên");
+            edt_name.setError("You must enter a full name!");
             return false;
         }
         if (ed_email.getText().toString().isEmpty()) {
-            ed_email.setError("Bạn chưa nhập email");
+            ed_email.setError("You must enter an email!");
             return false;
         }
         if (ed_pass.getText().toString().length() < 6) {
-            ed_pass.setError("Mật khẩu phải lớn hơn 6 kí tự");
+            ed_pass.setError("Passwords must be longer than 6 characters!");
             return false;
         }
         if (edt_rePassword.getText().toString().length() < 6) {
-            edt_rePassword.setError("Mật khẩu phải lớn hơn 6 kí tự");
+            edt_rePassword.setError("Password incorrect!");
             return false;
         }
         if (ApiUtils.isValidEmail(ed_email.getText().toString())) {
             if (ed_pass.getText().toString().equals(edt_rePassword.getText().toString()))
                 return true;
             else {
-                edt_rePassword.setError("Mật khẩu không khớp");
+                edt_rePassword.setError("Password incorrect!");
                 return false;
             }
         } else {
-            ed_email.setError("Email sai định dạng");
+            ed_email.setError("Wrong email format!");
             return false;
         }
 
