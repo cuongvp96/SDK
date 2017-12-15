@@ -103,7 +103,7 @@ public class FragmentLogin extends DialogFragment {
                                 fb_email = object.getString("email");
                             } catch (JSONException e) {
                             }
-                            fb_firtname.trim();
+                            fb_firtname=fb_firtname.trim();
                             if (mProgressDialog.isShowing()) {
                                 mProgressDialog.dismiss();
                             }
