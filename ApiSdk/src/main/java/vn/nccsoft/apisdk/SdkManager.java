@@ -30,10 +30,11 @@ import vn.nccsoft.apisdk.service.OnlineService;
  */
 
 public class SdkManager {
-    public static FragmentLogin startLoginSDK(AppCompatActivity activity) {
+    public static FragmentLogin startLoginSDK(AppCompatActivity activity,int game_id) {
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentLogin fragmentLogin = new FragmentLogin();
-        fragmentLogin.setCancelable(false);
+//        fragmentLogin.setCancelable(false);
+        fragmentLogin.setGame_id(game_id);
         fragmentLogin.show(fragmentManager, "dialog");
         return fragmentLogin;
     }
@@ -56,7 +57,7 @@ public class SdkManager {
         context.startService(mIntent);
     }
 
-    public static void login(final Context context, String username, String password, String game_id, final SuccessCallBack onCallBack) {
+    public static void login(final Context context, String username, String password, int game_id, final SuccessCallBack onCallBack) {
 
         Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login(username, password, game_id);
         mCall.enqueue(new Callback<ItemsLogin>() {
@@ -83,7 +84,7 @@ public class SdkManager {
     }
 
     public static void loginFB(final Context context, String fb_uid, String fb_token, String last_name,
-                               String first_name, String email, String phone,String game_id, final SuccessCallBack onCallBack) {
+                               String first_name, String email, String phone,int game_id, final SuccessCallBack onCallBack) {
 
         Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login_fb(fb_uid, fb_token, last_name, first_name, email, phone,game_id);
         mCall.enqueue(new Callback<ItemsLogin>() {
@@ -92,7 +93,7 @@ public class SdkManager {
                 if (response.isSuccessful() && response.body().getCode() == 1) {
                     String token = response.body().getData().getToken();
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
-                    sharedPrefsUtils.setStringPreference(context, "token_loginfb", token);
+                    sharedPrefsUtils.setStringPreference(context, "token_login", token);
                     onCallBack.onSuccessResponse("1");
                     Toast.makeText(context, "Login successfull!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -110,7 +111,7 @@ public class SdkManager {
         });
     }
 
-    public static void register(final Context context, String username, String password, String game_id, String name, final SuccessCallBack onCallBack) {
+    public static void register(final Context context, String username, String password, int game_id, String name, final SuccessCallBack onCallBack) {
 
         Call<ItemRegister> mCall = ApiUtils.getAPIServiceAPI().register(username, password, game_id, name);
         mCall.enqueue(new Callback<ItemRegister>() {

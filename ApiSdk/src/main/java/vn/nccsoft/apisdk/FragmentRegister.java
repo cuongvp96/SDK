@@ -36,17 +36,17 @@ import org.json.JSONObject;
  */
 
 public class FragmentRegister extends DialogFragment {
-    EditText ed_email, ed_pass, edt_name, edt_rePassword;
-    Button btn_register;
-    Dialog dialog;
-    ProgressDialog mProgressDialog;
-
+    private EditText ed_email, ed_pass, edt_name, edt_rePassword;
+    private Button btn_register;
+    private Dialog dialog;
+    private ProgressDialog mProgressDialog;
+    private int game_id;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // return super.onCreateDialog(savedInstanceState);
         dialog = new Dialog(getActivity());
         dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.fragment_sdkregister);
@@ -75,7 +75,7 @@ public class FragmentRegister extends DialogFragment {
                 if (vlidation()) {
                     showProgressDialog();
                     SdkManager.register(getActivity().getApplicationContext(), ed_email.getText().toString(), ed_pass.getText().toString(),
-                            getActivity().getPackageName(), edt_name.getText().toString(), callBack);
+                            game_id, edt_name.getText().toString(), callBack);
                 }
             }
         });
@@ -132,5 +132,13 @@ public class FragmentRegister extends DialogFragment {
                 }
             }
         }, 5000);
+    }
+
+    public int getGame_id() {
+        return game_id;
+    }
+
+    public void setGame_id(int game_id) {
+        this.game_id = game_id;
     }
 }

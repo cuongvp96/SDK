@@ -1,5 +1,6 @@
 package vn.nccsoft.apisdk;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -38,13 +39,20 @@ import java.util.Arrays;
 
 
 public class FragmentLogin extends DialogFragment {
-    EditText ed_email, ed_pass;
-    Button btn_login, btn_loginfb;
-    FrameLayout frameLayout;
-    Dialog dialog;
-    CallbackManager callbackManager;
-    String fbid, fb_firtname, fb_lastname, fb_token, fb_email;
-    ProgressDialog mProgressDialog;
+    private EditText ed_email, ed_pass;
+    private Button btn_login, btn_loginfb;
+    private FrameLayout frameLayout;
+    private  Dialog dialog;
+    private CallbackManager callbackManager;
+    private String fbid, fb_firtname, fb_lastname, fb_token, fb_email;
+    private ProgressDialog mProgressDialog;
+
+
+    private int game_id;
+//    @SuppressLint("ValidFragment")
+//    public FragmentLogin(int game_id) {
+//        this.game_id=game_id;
+//    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -53,7 +61,7 @@ public class FragmentLogin extends DialogFragment {
         dialog = new Dialog(getActivity());
         dialog.setCancelable(false);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.fragment_sdklogin);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -96,11 +104,17 @@ public class FragmentLogin extends DialogFragment {
                             } catch (JSONException e) {
                             }
                             fb_firtname.trim();
-
+                            if (mProgressDialog.isShowing()) {
+                                mProgressDialog.dismiss();
+                            }
                             SdkManager.loginFB(getActivity().getApplicationContext(), fbid, fb_token, fb_lastname, fb_firtname, fb_email, null
-                                   ,getActivity().getPackageName() , callBack);
+                                   ,getGame_id() , callBack);
                         } catch (JSONException e) {
                             Toast.makeText(getActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
+                        }finally {
+                            if (mProgressDialog.isShowing()) {
+                                mProgressDialog.dismiss();
+                            }
                         }
                     }
                 });
@@ -118,7 +132,9 @@ public class FragmentLogin extends DialogFragment {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(getActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
-
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
             }
         });
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +143,8 @@ public class FragmentLogin extends DialogFragment {
                 if(validation())
                 {
                     showProgressDialog();
-                    SdkManager.login(getActivity().getApplicationContext(), ed_email.getText().toString(), ed_pass.getText().toString(), getActivity().getPackageName(), callBack);
+                    SdkManager.login(getActivity().getApplicationContext(), ed_email.getText().toString(), ed_pass.getText().toString(),
+                            getGame_id(), callBack);
                 }
             }
         });
@@ -136,7 +153,8 @@ public class FragmentLogin extends DialogFragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentRegister fragmentRegister = new FragmentRegister();
-                fragmentRegister.setCancelable(false);
+                fragmentRegister.setGame_id(getGame_id());
+//                fragmentRegister.setCancelable(false);
                 fragmentRegister.show(fragmentManager, "dialog");
             }
         });
@@ -183,6 +201,14 @@ public class FragmentLogin extends DialogFragment {
                 }
             }
         }, 5000);
+    }
+
+    public int getGame_id() {
+        return game_id;
+    }
+
+    public void setGame_id(int game_id) {
+        this.game_id = game_id;
     }
 }
 

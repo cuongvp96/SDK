@@ -29,13 +29,13 @@ public class ItemProfile {
     private String email;
     @SerializedName("game_id")
     @Expose
-    private String gameId;
+    private int gameId;
     @SerializedName("agency_id")
     @Expose
     private Object agencyId;
     @SerializedName("role")
     @Expose
-    private Long role;
+    private int role;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -91,11 +91,11 @@ public class ItemProfile {
         this.email = email;
     }
 
-    public String getGameId() {
+    public int getGameId() {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
+    public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 
@@ -107,11 +107,11 @@ public class ItemProfile {
         this.agencyId = agencyId;
     }
 
-    public Long getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(Long role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

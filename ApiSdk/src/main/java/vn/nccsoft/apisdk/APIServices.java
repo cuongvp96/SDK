@@ -13,13 +13,13 @@ public interface APIServices {
     @FormUrlEncoded
     Call<ItemsLogin> login(@Field("email") String username,
                            @Field("password") String password,
-                           @Field("game_id") String game_id
+                           @Field("game_id") int game_id
     );
     @POST("/api/register")
     @FormUrlEncoded
     Call<ItemRegister> register(@Field("email") String username,
                                 @Field("password") String password,
-                                @Field("game_id") String game_id,
+                                @Field("game_id") int game_id,
                                 @Field("name") String name
     );
     @POST("api/fblogin")
@@ -30,7 +30,7 @@ public interface APIServices {
                                 @Field("first_name") String first_name,
                                 @Field("email") String email,
                                 @Field("phone") String phone,
-                              @Field("game_id") String game_id
+                              @Field("game_id") int game_id
     );
     @POST("/description/daily_login_online.php")
     @FormUrlEncoded
