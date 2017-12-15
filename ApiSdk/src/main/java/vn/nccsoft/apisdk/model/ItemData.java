@@ -11,9 +11,10 @@ public class ItemData {
     @SerializedName("token")
     @Expose
     private String token;
-    @SerializedName("profile")
+
+    @SerializedName("expire")
     @Expose
-    private ItemProfile profile;
+    private Long expire;
 
     public String getToken() {
         return token;
@@ -23,11 +24,11 @@ public class ItemData {
         this.token = token;
     }
 
-    public ItemProfile getProfile() {
-        return profile;
+    public Long getExpire() {
+        return expire;
     }
 
-    public void setProfile(ItemProfile profile) {
-        this.profile = profile;
+    public void setExpire(Long expire) {
+        this.expire = expire;
     }
 }

@@ -44,7 +44,7 @@ public class FragmentLogin extends DialogFragment {
     private FrameLayout frameLayout;
     private  Dialog dialog;
     private CallbackManager callbackManager;
-    private String fbid, fb_firtname, fb_lastname, fb_token, fb_email;
+    private String fbid, fb_firtname="", fb_lastname, fb_token, fb_email;
     private ProgressDialog mProgressDialog;
 
 

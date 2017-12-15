@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,7 +84,7 @@ public class SdkManager {
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
-                onCallBack.onSuccessResponse("3");
+                 onCallBack.onSuccessResponse("3");
                 Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });

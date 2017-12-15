@@ -11,7 +11,7 @@ public class ItemProfile {
 
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -27,15 +27,21 @@ public class ItemProfile {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
+    private String password;
     @SerializedName("game_id")
     @Expose
-    private int gameId;
+    private String gameId;
     @SerializedName("agency_id")
     @Expose
     private Object agencyId;
     @SerializedName("role")
     @Expose
-    private int role;
+    private Integer role;
+    @SerializedName("remember_token")
+    @Expose
+    private Object rememberToken;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -43,11 +49,11 @@ public class ItemProfile {
     @Expose
     private String updatedAt;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,11 +97,19 @@ public class ItemProfile {
         this.email = email;
     }
 
-    public int getGameId() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(String gameId) {
         this.gameId = gameId;
     }
 
@@ -107,12 +121,20 @@ public class ItemProfile {
         this.agencyId = agencyId;
     }
 
-    public int getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public Object getRememberToken() {
+        return rememberToken;
+    }
+
+    public void setRememberToken(Object rememberToken) {
+        this.rememberToken = rememberToken;
     }
 
     public String getCreatedAt() {

@@ -8,20 +8,10 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class ItemRegister {
-    @SerializedName("data")
-    @Expose
-    private ItemProfile data;
+
     @SerializedName("code")
     @Expose
     private Long code;
-
-    public ItemProfile getData() {
-        return data;
-    }
-
-    public void setData(ItemProfile data) {
-        this.data = data;
-    }
 
     public Long getCode() {
         return code;

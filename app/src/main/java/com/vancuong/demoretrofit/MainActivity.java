@@ -3,14 +3,22 @@ package com.vancuong.demoretrofit;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -50,7 +58,18 @@ public class MainActivity extends AppCompatActivity {
                 sdkManager.startLoginSDK(activity,1);
             }
         });
-
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo("vn.nccsoft.apisdk",PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                String sign= Base64.encodeToString(md.digest(), Base64.DEFAULT);
+//                Log.e("MY KEY HASH:", sign);
+//                Toast.makeText(getApplicationContext(),sign,         Toast.LENGTH_LONG).show();
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//        } catch (NoSuchAlgorithmException e) {
+//        }
 
 //        testCall.startServiceLogin2m();
 //        testCall.startServiceOnline();
