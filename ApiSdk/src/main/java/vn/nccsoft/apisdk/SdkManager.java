@@ -61,17 +61,17 @@ public class SdkManager {
         Intent mIntent = new Intent(context, Login2mService.class);
         Bundle mBundle = new Bundle();
         // Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("packageName", "com.vancuong.demoretrofit");
+        mIntent.putExtra("packageName", packageName);
         mIntent.putExtra("report_new_register", report_new_register);
         context.startService(mIntent);
     }
 
-    public static void startServiceOnline(final Context context, String packageName, Report_new_register report_new_register) {
+    public static void startServiceOnline(final Context context, String packageName) {
         Intent mIntent = new Intent(context, OnlineService.class);
         Bundle mBundle = new Bundle();
-        mIntent.putExtra("packageName", "com.vancuong.demoretrofit");
+        mIntent.putExtra("packageName", packageName);
 //        Report_new_register report_new_register=new Report_new_register(1,1,1);
-        mIntent.putExtra("time_delay", 5000l);
+        mIntent.putExtra("time_delay", 30*60*1000L);
         context.startService(mIntent);
     }
 
@@ -155,7 +155,72 @@ public class SdkManager {
             }
         });
     }
+    public static void offline(final SuccessCallBack onCallBack) {
 
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().offline();
+        mCall.enqueue(new Callback<ItemsLogin>() {
+            @Override
+            public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    onCallBack.onSuccessResponse("1");
+//                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show();
+                } else {
+//                    Toast.makeText(context, "Error code 2!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("2" + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsLogin> call, Throwable t) {
+                onCallBack.onSuccessResponse("3");
+//                Toast.makeText(context, "Error code 3!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public static void newRegister(final SuccessCallBack onCallBack) {
+
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().newRegister();
+        mCall.enqueue(new Callback<ItemsLogin>() {
+            @Override
+            public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    onCallBack.onSuccessResponse("1");
+//                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show();
+                } else {
+//                    Toast.makeText(context, "Error code 2!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("2" + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsLogin> call, Throwable t) {
+                onCallBack.onSuccessResponse("3");
+//                Toast.makeText(context, "Error code 3!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public static void refreshToken(final SuccessCallBack onCallBack) {
+
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().refreshToken();
+        mCall.enqueue(new Callback<ItemsLogin>() {
+            @Override
+            public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    onCallBack.onSuccessResponse("1");
+//                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show();
+                } else {
+//                    Toast.makeText(context, "Error code 2!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("2" + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsLogin> call, Throwable t) {
+                onCallBack.onSuccessResponse("3");
+//                Toast.makeText(context, "Error code 3!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     public static void register(final Context context, String name, int game_id, int agency_id,
                                 String email, String password, String os_type, String os_version, String device_uid, final SuccessCallBack onCallBack) {
 

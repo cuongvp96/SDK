@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import vn.nccsoft.apisdk.ApiUtils;
+import vn.nccsoft.apisdk.SdkManager;
+import vn.nccsoft.apisdk.SuccessCallBack;
 import vn.nccsoft.apisdk.model.Report_new_register;
 
 
@@ -23,6 +25,12 @@ public class OnlineService extends Service {
     Runnable runnable = new Runnable() {
         public void run() {
             if (!ApiUtils.isAppRunning(getApplicationContext(), packageName)){
+                SdkManager.offline(new SuccessCallBack() {
+                    @Override
+                    public void onSuccessResponse(String code) {
+                        //do something
+                    }
+                });
                 stopSelf();
                 Toast.makeText(getApplicationContext(),"online stop",Toast.LENGTH_SHORT).show();
                 Log.i("online","stop");

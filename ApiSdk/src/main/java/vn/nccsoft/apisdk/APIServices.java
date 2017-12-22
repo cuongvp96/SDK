@@ -46,8 +46,15 @@ public interface APIServices {
                            @Field("pay_card_type") int pay_card_type,
                            @Field("description") String description
     );
-
-
+    @POST("/api/offline")
+    @FormUrlEncoded
+    Call<ItemsLogin> offline();
+    @POST("/api/new-register")
+    @FormUrlEncoded
+    Call<ItemsLogin> newRegister();
+    @POST("/api/refresh")
+    @FormUrlEncoded
+    Call<ItemsLogin> refreshToken();
     @POST("/description/daily_login_online.php")
     @FormUrlEncoded
     Call<MessageServer> insert_dlo(@Field("dlo_datetime") String dlo_datetime,

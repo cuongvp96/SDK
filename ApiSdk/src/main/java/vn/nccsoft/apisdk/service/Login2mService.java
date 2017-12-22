@@ -21,7 +21,7 @@ import vn.nccsoft.apisdk.model.User;
 public class Login2mService extends Service {
     Report_new_register report_new_register = new Report_new_register();
     private Handler handler;
-    private int timeOnline = 11000;
+    private int timeOnline = 5*60*1000;
     public static String TAG = "TEST_API";
     private String packageName;
     Runnable runnable = new Runnable() {

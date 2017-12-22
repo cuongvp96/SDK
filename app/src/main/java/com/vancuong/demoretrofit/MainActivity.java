@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.btn_recall);
         final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         final AppCompatActivity activity=this;
+
         final SdkManager sdkManager = new SdkManager(1,1);
         sdkManager.startLoginSDK(this);
 
