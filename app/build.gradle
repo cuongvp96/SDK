@@ -28,4 +28,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':ApiSdk')
     implementation 'com.android.support:design:26.1.0'
+    compile 'com.intuit.sdp:sdp-android:1.0.5'
 }

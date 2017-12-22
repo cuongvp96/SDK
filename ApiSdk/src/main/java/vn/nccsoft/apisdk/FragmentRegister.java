@@ -1,5 +1,6 @@
 package vn.nccsoft.apisdk;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +43,8 @@ public class FragmentRegister extends DialogFragment {
     private Dialog dialog;
     private ProgressDialog mProgressDialog;
     private int game_id;
+    private int agency_id;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // return super.onCreateDialog(savedInstanceState);
@@ -69,13 +73,16 @@ public class FragmentRegister extends DialogFragment {
                 }
             }
         };
+        final String android_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (vlidation()) {
                     showProgressDialog();
-                    SdkManager.register(getActivity().getApplicationContext(), ed_email.getText().toString(), ed_pass.getText().toString(),
-                            game_id, edt_name.getText().toString(), callBack);
+                    SdkManager.register(getActivity().getApplicationContext(), edt_name.getText().toString(),getGame_id(),getAgency_id()
+                            ,ed_email.getText().toString(),ed_pass.getText().toString(),"android",android.os.Build.VERSION.RELEASE,
+                            android_id, callBack);
                 }
             }
         });
@@ -86,6 +93,7 @@ public class FragmentRegister extends DialogFragment {
             }
 
         });
+
         return dialog;
     }
 
@@ -140,5 +148,13 @@ public class FragmentRegister extends DialogFragment {
 
     public void setGame_id(int game_id) {
         this.game_id = game_id;
+    }
+
+    public int getAgency_id() {
+        return agency_id;
+    }
+
+    public void setAgency_id(int agency_id) {
+        this.agency_id = agency_id;
     }
 }

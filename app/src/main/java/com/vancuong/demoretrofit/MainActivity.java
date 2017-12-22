@@ -43,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.btn_recall);
         final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         final AppCompatActivity activity=this;
-        final SdkManager sdkManager = new SdkManager();
-        sdkManager.startLoginSDK(this,1);
+        final SdkManager sdkManager = new SdkManager(1,1);
+        sdkManager.startLoginSDK(this);
+
         // testCall.insert_dlo(getApplicationContext(),daily_login_online);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 // Revenue_agency revenue_agency=new Revenue_agency(1,10,1,20,50);
 //                Total_online total_online = new Total_online(10, 1);
 //                testCall.insert_to(getApplicationContext(), total_online);
-                sdkManager.startLoginSDK(activity,1);
+                sdkManager.startLoginSDK(activity);
             }
         });
 //        try {

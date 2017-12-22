@@ -18,7 +18,7 @@ import vn.nccsoft.apisdk.model.Report_new_register;
 
 public class OnlineService extends Service {
     private Handler handler;
-    private long delay = 5000;
+    private long delay = 30*60*1000;
     private String packageName;
     Runnable runnable = new Runnable() {
         public void run() {

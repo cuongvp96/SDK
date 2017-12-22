@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,13 +43,13 @@ public class FragmentLogin extends DialogFragment {
     private EditText ed_email, ed_pass;
     private Button btn_login, btn_loginfb;
     private FrameLayout frameLayout;
-    private  Dialog dialog;
+    private Dialog dialog;
     private CallbackManager callbackManager;
-    private String fbid, fb_firtname="", fb_lastname, fb_token, fb_email;
+    private String fbid, fb_firtname = "", fb_lastname, fb_token, fb_email;
     private ProgressDialog mProgressDialog;
-
-
     private int game_id;
+    private int agency_id;
+
 //    @SuppressLint("ValidFragment")
 //    public FragmentLogin(int game_id) {
 //        this.game_id=game_id;
@@ -103,15 +104,17 @@ public class FragmentLogin extends DialogFragment {
                                 fb_email = object.getString("email");
                             } catch (JSONException e) {
                             }
-                            fb_firtname=fb_firtname.trim();
+                            fb_firtname = fb_firtname.trim();
                             if (mProgressDialog.isShowing()) {
                                 mProgressDialog.dismiss();
                             }
+                            final String android_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                                    Settings.Secure.ANDROID_ID);
                             SdkManager.loginFB(getActivity().getApplicationContext(), fbid, fb_token, fb_lastname, fb_firtname, fb_email, null
-                                   ,getGame_id() , callBack);
+                                    , "android", android.os.Build.VERSION.RELEASE, getAgency_id(), getGame_id(), android_id, callBack);
                         } catch (JSONException e) {
                             Toast.makeText(getActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
-                        }finally {
+                        } finally {
                             if (mProgressDialog.isShowing()) {
                                 mProgressDialog.dismiss();
                             }
@@ -140,8 +143,7 @@ public class FragmentLogin extends DialogFragment {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validation())
-                {
+                if (validation()) {
                     showProgressDialog();
                     SdkManager.login(getActivity().getApplicationContext(), ed_email.getText().toString(), ed_pass.getText().toString(),
                             getGame_id(), callBack);
@@ -155,6 +157,7 @@ public class FragmentLogin extends DialogFragment {
                 FragmentRegister fragmentRegister = new FragmentRegister();
                 fragmentRegister.setGame_id(getGame_id());
 //                fragmentRegister.setCancelable(false);
+                fragmentRegister.setAgency_id(getAgency_id());
                 fragmentRegister.show(fragmentManager, "dialog");
             }
         });
@@ -183,7 +186,7 @@ public class FragmentLogin extends DialogFragment {
             return false;
         }
         if (ApiUtils.isValidEmail(ed_email.getText().toString())) {
-              return true;
+            return true;
         } else {
             ed_email.requestFocus();
             ed_email.setError("Wrong email format!");
@@ -209,6 +212,14 @@ public class FragmentLogin extends DialogFragment {
 
     public void setGame_id(int game_id) {
         this.game_id = game_id;
+    }
+
+    public int getAgency_id() {
+        return agency_id;
+    }
+
+    public void setAgency_id(int agency_id) {
+        this.agency_id = agency_id;
     }
 }
 

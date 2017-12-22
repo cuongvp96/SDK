@@ -37,11 +37,22 @@ import vn.nccsoft.apisdk.service.OnlineService;
  */
 
 public class SdkManager {
-    public static FragmentLogin startLoginSDK(AppCompatActivity activity,int game_id) {
+
+    private int gameid;
+    private int agency_id;
+
+    public SdkManager(int gameid, int agency_id) {
+        this.gameid = gameid;
+        this.agency_id = agency_id;
+    }
+
+    public FragmentLogin startLoginSDK(Activity activity) {
+
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentLogin fragmentLogin = new FragmentLogin();
 //        fragmentLogin.setCancelable(false);
-        fragmentLogin.setGame_id(game_id);
+        fragmentLogin.setGame_id(getGameid());
+        fragmentLogin.setAgency_id(getAgency_id());
         fragmentLogin.show(fragmentManager, "dialog");
         return fragmentLogin;
     }
@@ -75,25 +86,27 @@ public class SdkManager {
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
                     sharedPrefsUtils.setStringPreference(context, "token_login", token);
                     onCallBack.onSuccessResponse("1");
-                    Toast.makeText(context, "Login successfull!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login success!", Toast.LENGTH_SHORT).show();
                 } else {
                     onCallBack.onSuccessResponse("2");
-                    Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login failed code 2!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
-                 onCallBack.onSuccessResponse("3");
-                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
+                onCallBack.onSuccessResponse("3");
+                Toast.makeText(context, "Login failed code 3!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public static void loginFB(final Context context, String fb_uid, String fb_token, String last_name,
-                               String first_name, String email, String phone,int game_id, final SuccessCallBack onCallBack) {
+                               String first_name, String email, String phone, String os_type, String os_version,
+                               int game_id, int agency_id, String device_uid, final SuccessCallBack onCallBack) {
 
-        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login_fb(fb_uid, fb_token, last_name, first_name, email, phone,game_id);
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().login_fb(fb_uid, fb_token, last_name,
+                first_name, email, phone, os_type, os_version, game_id, agency_id, device_uid);
         mCall.enqueue(new Callback<ItemsLogin>() {
             @Override
             public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
@@ -102,9 +115,9 @@ public class SdkManager {
                     SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
                     sharedPrefsUtils.setStringPreference(context, "token_login", token);
                     onCallBack.onSuccessResponse("1");
-                    Toast.makeText(context, "Login successfull!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login success!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Login failed error code 2!", Toast.LENGTH_SHORT).show();
                     onCallBack.onSuccessResponse("2" +
                             "");
                 }
@@ -113,14 +126,41 @@ public class SdkManager {
             @Override
             public void onFailure(Call<ItemsLogin> call, Throwable t) {
                 onCallBack.onSuccessResponse("3");
-                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Login failed error code 3!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void register(final Context context, String username, String password, int game_id, String name, final SuccessCallBack onCallBack) {
+    public static void payment(final Context context, int pay_price, int pay_card_type,
+                               String description, final SuccessCallBack onCallBack) {
 
-        Call<ItemRegister> mCall = ApiUtils.getAPIServiceAPI().register(username, password, game_id, name);
+        Call<ItemsLogin> mCall = ApiUtils.getAPIServiceAPI().payment(pay_price, pay_card_type, description);
+        mCall.enqueue(new Callback<ItemsLogin>() {
+            @Override
+            public void onResponse(Call<ItemsLogin> call, Response<ItemsLogin> response) {
+                if (response.isSuccessful() && response.body().getCode() == 1) {
+                    onCallBack.onSuccessResponse("1");
+                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Error code 2!", Toast.LENGTH_SHORT).show();
+                    onCallBack.onSuccessResponse("2" +
+                            "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsLogin> call, Throwable t) {
+                onCallBack.onSuccessResponse("3");
+                Toast.makeText(context, "Error code 3!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static void register(final Context context, String name, int game_id, int agency_id,
+                                String email, String password, String os_type, String os_version, String device_uid, final SuccessCallBack onCallBack) {
+
+        Call<ItemRegister> mCall = ApiUtils.getAPIServiceAPI().register(name, game_id, agency_id, email,
+                password, os_type, os_version, device_uid);
         mCall.enqueue(new Callback<ItemRegister>() {
             @Override
             public void onResponse(Call<ItemRegister> call, Response<ItemRegister> response) {
@@ -130,8 +170,7 @@ public class SdkManager {
 //                        String token = response.body().getData().getToken();
 //                        SharedPrefsUtils sharedPrefsUtils = new SharedPrefsUtils();
 //                        sharedPrefsUtils.setStringPreference(context, "token_login", token);
-                }else
-                {
+                } else {
                     onCallBack.onSuccessResponse("2");
                     Toast.makeText(context, "Signup failed!", Toast.LENGTH_SHORT).show();
                 }
@@ -222,4 +261,19 @@ public class SdkManager {
         });
     }
 
+    public int getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(int gameid) {
+        this.gameid = gameid;
+    }
+
+    public int getAgency_id() {
+        return agency_id;
+    }
+
+    public void setAgency_id(int agency_id) {
+        this.agency_id = agency_id;
+    }
 }

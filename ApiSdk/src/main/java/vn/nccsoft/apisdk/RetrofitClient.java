@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RetrofitClient {
-//    final static String URL="http://172.16.200.210";
     final static String URLAPI="http://27.118.16.48";
     private static Retrofit retrofit = null;
     public static String MyauthHeaderContent = "Bearer {your_token}";
